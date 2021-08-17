@@ -28,8 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/recipes', recipesRouter);
+app.use('/', recipesRouter);
 
 
 // catch 404 and forward to error handler
@@ -48,6 +47,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3030, () => console.log("[LOG] RecipesManager just started !"))
+app.listen(9999, () => console.log("[LOG] RecipesManager just started !"))
 
 module.exports = app;

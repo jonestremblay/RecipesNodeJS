@@ -1,0 +1,49 @@
+<h1 class="mb-3">Ingrédients</h1>
+
+<table id="ingredientsTable"  class="table mb-3" style="float: right;">
+    <thead>
+
+    </thead>
+    <tbody>
+        <tr class="input-group">
+            <td >
+                <span class="input-group-text">Ingrédient</span>
+                <input type="text" id="ingredientName" class="form-control ingredientName" placeholder="Nom">
+                <button type="button" id="deleteRow" style="margin-top: 10px;"
+                class="btn btn-danger btn-sm DeleteButton" >Delete</button>
+            </td>
+            <td>
+                <span class="input-group-text">Quantity</span>
+                <input type="text" id="ingredientQuantity" class="form-control ingredientQuantity"  name="numOrDecimalonly">
+                <div id="unitOfMeasurePicker" class="btn-group" role="group" aria-label="Basic radio toggle button group" onchange="alert(this.value)">
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio" id="gram_0" value="gr" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="gram_0" checked>gr</label>
+    
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="kilogram_0" value="kg" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="kilogram_0">kg</label>
+            
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="millilitre_0" value="mL" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="millilitre_0">mL</label>
+                  
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="litre_0" value="L" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="litre_0">L</label>
+                  
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="ounce_0" value="oz" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="ounce_0">oz</label>
+    
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="teaspoon_0" value="tsp" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="teaspoon_0">tsp</label>
+                  
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="tablespoon_0" value="tbsp" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="tablespoon_0">tbsp</label>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <td class="text-center">
+            <button type="button" id="newIngredientBtn"
+            onclick="appendNewIngredient()" class="btn btn-primary">Ajouter ingrédient</button>
+        </td>
+    </tfoot>
+</table>
