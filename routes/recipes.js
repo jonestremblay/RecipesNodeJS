@@ -13,8 +13,10 @@ router.get('/new', (req, res) => {
 
 /* Create a recipe */
 router.post('/new', (req, res) => {
-  let ingredients = req.body.ingredients.split(',');
-  let instructions = req.body.instructions.split(',');
+  let ingredients = req.body.valueOfIngredients.split(',');
+  let instructions = req.body.valueOfInstructions.split(',');
+  /* let ingredients = req.body.ingredients;
+  let instructions = req.body.instructions; */
   var recipe = {
     "recipeName" : req.body.recipeName,
     "portions" : req.body.valueOfPortions,
@@ -24,13 +26,16 @@ router.post('/new', (req, res) => {
     "ingredients": [],
     "instructions": []
   };
+  console.log("Ingredients : " + ingredients)
+  console.log("Instructions :" + instructions)
+
   for (let i in ingredients){
     recipe.ingredients.push(ingredients[i])
   }
   for (let i in instructions){
     recipe.instructions.push(instructions[i])
   }
-  res.send(recipe)
+   res.send(recipe)
 })
 
 /* Get one recipe */

@@ -6,13 +6,13 @@ function getIngredientTableRow(){
     var groupNum = groupNumber + 1; 
     groupNumber = groupNum;
     var row = '<tr class="input-group"><td><span class="input-group-text">Ingrédient</span>'
-            + '<input type="text" class="form-control ingredientName" placeholder="Nom">'
+            + '<input type="text" class="form-control ingredientName" placeholder="Nom" required>'
             + '<button type="button" id="deleteRow" style="margin-top: 10px;" class="btn btn-danger btn-sm DeleteButton"'
             + '>Delete</button></td><td>'
             + '<span class="input-group-text">Quantity</span>'
-            + '<input type="text" class="form-control ingredientQuantity" name="numOrDecimalonly">'
-            + '<div id="unitOfMeasurePicker" class="btn-group" role="group" aria-label="Basic radio toggle button group">'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio"' + groupNum 
+            + '<input type="text" class="form-control ingredientQuantity" name="numOrDecimalonly"  required>'
+            + '<div id="unitOfMeasurePicker" class="btn-group unitOfMeasureGroupButton" role="group" aria-label="Basic radio toggle button group">'
+            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="gram_' + groupNum + '" value="gr" autocomplete="off">'
             + '<label class="btn btn-outline-primary" for="gram_' + groupNum + '" checked>gr</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
@@ -80,12 +80,14 @@ $(function() {
     });
 
     $("#ingredientsTable").on("click", ".DeleteButton", function() {
+        groupNumber--;
         $(this).closest("tr").remove();
      });
 
     $("#instructionsList").on("click", ".DeleteInstrButton", function() {
         $(this).closest("li").remove();
     });
+
 });
 
 function removeRow(row){
@@ -93,15 +95,33 @@ function removeRow(row){
 }
 
 function createRecipe(){
-    $('#instructions').val(getAllInstructions());
-    $('#ingredients').val(getAllIngredients());
-    $('#newRecipeForm').submit(); 
-    /* cuteAlert({
-        type: "error",
-        title: "Not finished !",
-        message: "Almost tho ...",
-        buttonText: "Ok :-(",
-    }); */
+    if (checkUnitsOfMeasureButtons()){
+        cuteAlert({
+                type: "error",
+                title: "Missing values",
+                message: "Have you checked which unit of measure you want for every ingredient ?"
+                        + "<br><br>If you don't want to add ingredient(s) for now, just delete them before submitting.",
+                buttonText: "Understood",
+            });
+    } else {
+        $('#valueOfInstructions').val(getAllInstructions());
+        $('#valueOfIngredients').val(getAllIngredients());
+        $('#submitButton').trigger("click");
+    }
+}
+
+function checkUnitsOfMeasureButtons(){
+    let missingUnitOfMeasure = false;
+    $.each($('.unitOfMeasureGroupButton '), function (){
+        var self = $(this);
+        var name = self.find(".unitOfMeasureRadio").attr('name');
+        let radioClicked = $('#ingredientsTable input[name=' + name +']:checked').val();
+        if (radioClicked == null){
+            missingUnitOfMeasure = true;
+            return missingUnitOfMeasure;
+        }
+    });
+    return missingUnitOfMeasure;
 }
 
 function getAllIngredients(){
@@ -112,7 +132,7 @@ function getAllIngredients(){
         var quantity = self.find('input.ingredientQuantity').val()
         var unitOfMeasure = self.find('input.unitOfMeasureRadio:checked').val()
         var ingredient = quantity + " " + unitOfMeasure + " of " + ingredientName;
-        if (ingredient != "undefined undefined of undefined"){
+        if (ingredientName != null && quantity != null && unitOfMeasure != null){
             ingredients.push(ingredient)
         }
      }); 
@@ -124,7 +144,9 @@ function getAllInstructions(){
     $.each($("#instructionsList li"),function(){
         var self=$(this);
         var instruction = self.find("textarea").val();
-        instructions.push(instruction)
+        if (instruction != ""){
+            instructions.push(instruction)
+        }
      }); 
      return instructions;
 }

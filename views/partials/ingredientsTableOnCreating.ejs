@@ -8,16 +8,16 @@
         <tr class="input-group">
             <td >
                 <span class="input-group-text">Ingrédient</span>
-                <input type="text" id="ingredientName" class="form-control ingredientName" placeholder="Nom">
+                <input type="text" id="ingredientName" class="form-control ingredientName" placeholder="Nom" required>
                 <button type="button" id="deleteRow" style="margin-top: 10px;"
                 class="btn btn-danger btn-sm DeleteButton" >Delete</button>
             </td>
             <td>
                 <span class="input-group-text">Quantity</span>
-                <input type="text" id="ingredientQuantity" class="form-control ingredientQuantity"  name="numOrDecimalonly">
-                <div id="unitOfMeasurePicker" class="btn-group" role="group" aria-label="Basic radio toggle button group" onchange="alert(this.value)">
-                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio" id="gram_0" value="gr" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="gram_0" checked>gr</label>
+                <input type="text" id="ingredientQuantity" class="form-control ingredientQuantity"  name="numOrDecimalonly" required>
+                <div id="unitOfMeasurePicker" class="btn-group unitOfMeasureGroupButton" role="group" aria-label="Basic radio toggle button group" >
+                    <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="gram_0" value="gr" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="gram_0" >gr</label>
     
                     <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_0" id="kilogram_0" value="kg" autocomplete="off">
                     <label class="btn btn-outline-primary" for="kilogram_0">kg</label>

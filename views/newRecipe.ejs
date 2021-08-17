@@ -31,30 +31,30 @@
                     <span class="input-group-text" id="basic-addon3" style="margin-right: 15px;">
                         Portions <span style="color: red;"> *</span></span>
                     <div id="portionsPicker" class="btn-group" role="radiogroup" aria-label="Basic radio toggle button group"
-                        style="flex-wrap: wrap;" required>
+                        style="flex-wrap: wrap;">
                         
-                        <input type="radio" class="btn-check" value="1" name="btnradio" id="portion_1" autocomplete="off">
+                        <input type="radio" class="btn-check" value="1" name="portionsRadios" id="portion_1" required>
                         <label class="btn btn-outline-primary" for="portion_1">1</label>
                     
-                        <input type="radio" class="btn-check" value="2" name="portionsRadios" id="portion_2" autocomplete="off">
+                        <input type="radio" class="btn-check" value="2" name="portionsRadios" id="portion_2">
                         <label class="btn btn-outline-primary" for="portion_2">2</label>
                     
-                        <input type="radio" class="btn-check" value="3" name="portionsRadios" id="portion_3" autocomplete="off">
+                        <input type="radio" class="btn-check" value="3" name="portionsRadios" id="portion_3">
                         <label class="btn btn-outline-primary" for="portion_3">3</label>
     
-                        <input type="radio" class="btn-check" value="4" name="portionsRadios" id="portion_4" autocomplete="off">
+                        <input type="radio" class="btn-check" value="4" name="portionsRadios" id="portion_4">
                         <label class="btn btn-outline-primary" for="portion_4">4</label>
                     
-                        <input type="radio" class="btn-check" value="5" name="portionsRadios" id="portion_5" autocomplete="off">
+                        <input type="radio" class="btn-check" value="5" name="portionsRadios" id="portion_5">
                         <label class="btn btn-outline-primary" for="portion_5">5</label>
                     
-                        <input type="radio" class="btn-check" value="6" name="portionsRadios" id="portion_6" autocomplete="off">
+                        <input type="radio" class="btn-check" value="6" name="portionsRadios" id="portion_6">
                         <label class="btn btn-outline-primary" for="portion_6">6</label>
     
-                        <input type="radio" class="btn-check" value="7" name="portionsRadios" id="portion_7" autocomplete="off">
+                        <input type="radio" class="btn-check" value="7" name="portionsRadios" id="portion_7" >
                         <label class="btn btn-outline-primary" for="portion_7">7</label>
                     
-                        <input type="radio" class="btn-check" value="8" name="portionsRadios" id="portion_8" autocomplete="off">
+                        <input type="radio" class="btn-check" value="8" name="portionsRadios" id="portion_8">
                         <label class="btn btn-outline-primary" for="portion_8">8</label>
                     
                         <input type="radio" class="btn-check" value="9" name="portionsRadios" id="portion_9" autocomplete="off">
@@ -101,17 +101,17 @@
         </div>
 
         <div class="col col-ingredients">
-            <div class="row">
+            <div class="row" >
                 <% include partials/ingredientsTableOnCreating.ejs %>
             </div>
         </div>
         <input type="hidden" id="valueOfPortions" name="valueOfPortions" value="none"/>
-        <input type="hidden" id="ingredients" name="ingredients" value="none"/>
-        <input type="hidden" id="instructions" name="instructions" value="none"/>
-
+        <input type="hidden" id="valueOfIngredients" name="valueOfIngredients" value=""/>
+        <input type="hidden" id="valueOfInstructions" name="valueOfInstructions" value=""/>
+        <input type="submit" style="display:none" name="submitButton" id="submitButton" >
     </form>
     <div class="text-center">
-        <button class="btn btn-success btn-lg" onclick="createRecipe()">Créer la recette</button>
+        <button class="btn btn-success btn-lg" type="button" onclick="createRecipe()">Créer la recette</button>
     </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
