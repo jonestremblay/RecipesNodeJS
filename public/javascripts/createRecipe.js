@@ -14,25 +14,25 @@ function getIngredientTableRow(){
             + '<div id="unitOfMeasurePicker" class="btn-group unitOfMeasureGroupButton" role="group" aria-label="Basic radio toggle button group">'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="gram_' + groupNum + '" value="gr" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="gram_' + groupNum + '" checked>gr</label>'
+            + '<label class="btn btn-secondary" for="gram_' + groupNum + '" checked>gr</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="kilogram_' + groupNum + '" value="kg" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="kilogram_' + groupNum + '">kg</label>'
+            + '<label class="btn btn-secondary" for="kilogram_' + groupNum + '">kg</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="millilitre_' + groupNum + '" value="mL" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="millilitre_' + groupNum + '">mL</label>'
+            + '<label class="btn btn-secondary" for="millilitre_' + groupNum + '">mL</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="litre_' + groupNum + '" value="L" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="litre_' + groupNum + '">L</label>'
+            + '<label class="btn btn-secondary" for="litre_' + groupNum + '">L</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="ounce_' + groupNum + '" value="oz" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="ounce_' + groupNum + '">oz</label>'
+            + '<label class="btn btn-secondary" for="ounce_' + groupNum + '">oz</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="teaspoon_' + groupNum + '"  value="tsp" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="teaspoon_' + groupNum + '">tsp</label>'
+            + '<label class="btn btn-secondary" for="teaspoon_' + groupNum + '">tsp</label>'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
                                         + '" id="tablespoon_' + groupNum + '" value="tbsp" autocomplete="off">'
-            + '<label class="btn btn-outline-primary" for="tablespoon_' + groupNum + '">tbsp</label></div></td></tr>';
+            + '<label class="btn btn-secondary" for="tablespoon_' + groupNum + '">tbsp</label></div></td></tr>';
 
             
     return row;

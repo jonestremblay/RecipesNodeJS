@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const Recipe = require('../models/recipe').Recipe
+const Ingredient = require('../models/ingredient').Ingredient
+const Instruction = require('../models/instruction').Instruction
 
-/* Get all recipes */
-router.get('/', (req, res) => {
-  res.render('recipes', {title: 'Recipes'})
-})
 
 /* Get page to create a recipe */
 router.get('/new', (req, res) => {
@@ -12,47 +11,77 @@ router.get('/new', (req, res) => {
 })
 
 /* Create a recipe */
-router.post('/new', (req, res) => {
-  let ingredients = req.body.valueOfIngredients.split(',');
-  let instructions = req.body.valueOfInstructions.split(',');
-  /* let ingredients = req.body.ingredients;
-  let instructions = req.body.instructions; */
-  var recipe = {
-    "recipeName" : req.body.recipeName,
-    "portions" : req.body.valueOfPortions,
-    "tempsPrep" : req.body.tempsPrep,
-    "tempsCook": req.body.tempsCook,
-    "source": req.body.source,
-    "ingredients": [],
-    "instructions": []
-  };
-  console.log("Ingredients : " + ingredients)
-  console.log("Instructions :" + instructions)
+router.post('/new', async (req, res) => {
+  let ingredients = await req.body.valueOfIngredients.split(',');
+  let instructions = await req.body.valueOfInstructions.split(',');
 
-  for (let i in ingredients){
-    recipe.ingredients.push(ingredients[i])
+  let ingredientsArray = createAndGetIngredientsArray(ingredients)
+  let instructionsArray = createAndGetInstructionsArray(instructions)
+  let addedRecipe;
+
+  var newRecipe = new Recipe({
+    name : req.body.recipeName,
+    portions : req.body.valueOfPortions,
+    tempsPreparation : req.body.tempsPrep,
+    tempsCuisson : req.body.tempsCook,
+    source : req.body.source,
+    ingredients : ingredientsArray,
+    instructions : instructionsArray
+
+  });
+  try {
+    addedRecipe = await newRecipe.save()
+  } catch (err){
+      res.status(400).json({message : err.message})
   }
-  for (let i in instructions){
-    recipe.instructions.push(instructions[i])
-  }
-   res.send(recipe)
+  res.redirect("/")
 })
 
 /* Get one recipe */
-router.get('/:recipeId', (req, res) => {
-    
+router.get('/find/', async (req, res) => {
+  var recipeId = req.query.id;
+  var recipe = await Recipe.findById(recipeId)
+  res.render("recipe", {title: recipe.name, recipe :recipe},)
 })
 
 /* Delete one recipe */
-router.delete('/:recipeId', (req, res) => {
+router.delete('/delete/:recipeId', (req, res) => {
     
 })
 
 /* Edit one recipe */
-router.put('/:recipeId', (req, res) => {
+router.put('/edit/:recipeId', (req, res) => {
     
 })
 
+function createAndGetIngredientsArray(ingredientsFromRequest){
+  let ingredientsArray = []
+  if (ingredientsFromRequest[0] != ""){
+    for (let i in ingredientsFromRequest){
+      let name = ingredientsFromRequest[i].split('of')[1].trim()
+      let quantity = ingredientsFromRequest[i].split('of')[0].trim()
+      let ingredientObj = new Ingredient({
+          name : name,
+          quantity : quantity
+      })
+      ingredientsArray.push(ingredientObj)
+    }
+  }
+  return ingredientsArray;
+}
 
+function createAndGetInstructionsArray(instructionsFromRequest){
+  let instructionsArray = []
+  if (instructionsFromRequest[0] != ""){
+    for (let i in instructionsFromRequest){
+      let name = instructionsFromRequest[i]
+      let instructionsObj = new Instruction({
+          instruction : name
+      })
+      instructionsArray.push(instructionsObj)
+    }
+  }
+  return instructionsArray;
+}
 
 module.exports = router

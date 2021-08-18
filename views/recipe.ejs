@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/libs/cute-alert/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+ <% include partials/navbar.ejs %>
+
+<body>
+  <br><br><br>
+
+<div class="container" >
+
+    <div class="container" >
+        <div class="row">
+            <div id="foundRecipeCard" class="card bg-dark text-white mb-3 recipeCard">
+                <div class="card-header">
+                    <img src="/images/pizza.jpg" class="card-img" alt="..."  width="250px" height="250px">
+                    <div class="card-img">  
+                </div>
+                <div class="row">
+                    <div class="text-center my-3">
+                        <h1><%= recipe.name %></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row mt-5 mb-5">
+                            <ul id="detailsList" class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <img src="/images/icons/stopwatch.svg" class="" width="32px" height="32px" style="margin-right: 50px;">
+                                    <span style="margin-right: 25px;"><b>Préparation :</b></span>
+                                    <%= recipe.tempsPreparation %> minutes
+                                </li>
+                                <li class="list-group-item">
+                                    <img src="/images/icons/stopwatch.svg" class="" width="32px" height="32px" style="margin-right: 50px;">
+                                    <span style="margin-right: 55px;"><b>Cuisson : </b></span>
+                                    <%= recipe.tempsCuisson %> minutes
+                                </li>
+                                <li class="list-group-item">
+                                    <img src="/images/icons/portions.svg" class="" width="32px" height="32px" style="margin-right: 50px;">
+                                    Donne <%=  recipe.portions %> portions
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row ">
+                            <div class="text-center">
+                                <label for="ingredientsList"><h2>Ingrédients</h2></label>
+                            </div>
+                            <ul id="ingredientsList" class="list-group list-group-flush" >
+                                <% recipe.ingredients.forEach(function(ingredient)  {   %>
+                                    <li class="list-group-item">
+                                        <span style="margin-right: 25px;">
+                                            <b><%= ingredient.quantity %></b>
+                                        </span>
+                                        <i><%= ingredient.name %></i>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="text-center">
+                            <label for="instructionsList"><h2>Instructions</h2></label>
+                        </div>
+                        <ol id="instructionsList" class="list-group list-group-flush">
+                            <% recipe.instructions.forEach(function(instruction)  {   %>
+                                <li class="list-group-item">
+                                    <span style="font-size: 18px"><%= instruction.instruction %></span>
+                                </li>
+                            <% }); %>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-white text-center">
+                Source : <%= recipe.source %>
+            </div>
+            </div>
+        </div>
+    
+    </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+    integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
+  </script>
+  <script src="/libs/cute-alert/cute-alert.js"></script>
+</body>
+
+</html>

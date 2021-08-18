@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+ <% include partials/navbar.ejs %>
+
+<body>
+  <br><br><br>
+  
+  <h1><%=title%></h1>
+  
+  <% recipes.forEach(function(recipe)  {   %>
+    <div class="card bg-dark text-white text-center mb-3 recipeCard">
+     
+        <a href="/recipes/find/?id=<%= recipe._id %>" class="text-white" style="text-decoration-line: none;">
+          <div class="card-header">
+            <div class="row">
+              <div class="col" style="font-size: 32px; text-align: start;">
+                <%= recipe.name %>
+              </div>
+              <div class="col" style="font-size: 18px; text-align: end; ">
+                  <%= recipe.portions %> <img src="/images/icons/portions.svg" class="filter-white" width="32px" height="32px"><br>
+                  <%= recipe.tempsPreparation + recipe.tempsCuisson %>  <img src="/images/icons/stopwatch.svg" class="filter-white" width="32px" height="32px">
+              </div>
+            </div>
+          </div>
+        </a>
+   
+      <a href="/recipe/get" class="text-white" style="text-decoration-line: none;">
+        <img src="/images/pizza.jpg" class="card-img" alt="..."  width="250px" height="250px">
+        <div class="card-img">  
+
+        </div>
+      </a>
+      <div class="card-footer text-muted">
+        Source : <%= recipe.source %>
+        <input type="hidden" name="recipeId" value="<%= recipe._id %>" />
+      </div>
+    </div>
+  <% }); %>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+    integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
+  </script>
+  <script src="/javascripts/common.js" ></script>
+</body>
+
+</html>

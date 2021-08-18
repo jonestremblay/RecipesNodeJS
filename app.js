@@ -6,16 +6,22 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose')
 
+
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
 const db = mongoose.connection
 db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('[LOG] Connected to database.'))
 
 /* Routers */ 
-var indexRouter = require('./routes/index');
+var homeRouter = require('./routes/home');
 const recipesRouter = require('./routes/recipes')
 const ingredientsRouter = require('./routes/ingredients')
-recipesRouter.use('/:recipeId/ingredients', ingredientsRouter)
+// recipesRouter.use('/:recipeId/ingredients', ingredientsRouter)
+
+/* Models*/
+const Recipe = require('./models/recipe').Recipe
+const Ingredient = require('./models/ingredient').Ingredient
+const Instruction = require('./models/instruction').Instruction
 
 var app = express();
 
@@ -28,8 +34,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', recipesRouter);
+app.use('/home', homeRouter);
+app.use("/recipes", recipesRouter)
 
+
+app.use(function(req, res){
+  res.redirect("/home/");
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

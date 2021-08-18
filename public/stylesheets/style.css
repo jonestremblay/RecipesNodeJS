@@ -7,11 +7,6 @@
   }
 }
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
 a {
   color: #00B7FF;
 }
@@ -53,9 +48,25 @@ ol li::before {
   line-height: 1;
 }
 
-
-
 body {
   padding: 1rem;
   font-family: sans-serif;
+  background-color: #866969 !important;
+}
+
+.recipeCard {
+  /* margin-left: auto;
+  margin-right: auto;
+  width: 50%; */
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#foundRecipeCard {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.filter-white {
+  filter: invert(100%) sepia(7%) saturate(37%) hue-rotate(134deg) brightness(119%) contrast(100%);
 }
