@@ -40,7 +40,11 @@ const recipeSchema = new Schema({
         required : false
     },
     ingredients: [ingredientSchema],
-    instructions : [instructionSchema]
+    instructions : [instructionSchema],
+    recipeImage : {
+        type : String,
+        required : false
+    }
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema)

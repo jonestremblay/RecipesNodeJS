@@ -1,20 +1,29 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <h1 class="mb-3">Instructions</h1>
-<table id="instructionsTable"  class="table mb-3 instructionsTable" style="width: 90%;">
-    <thead>
-
-    </thead>
-    
-        <tbody>
-            <ol id="instructionsList">
-
+        <div class="text-center">
+            <ol id="instructionsList" class="list-group list-group-flush">
+                <% if (mode == "edit") { %>
+                    <% recipe.instructions.forEach(function(instruction) { %>
+                        <li style="width: 80%;">
+                            <tr class="input-group" name="instructionRow">
+                                <td>
+                                    <textarea col="32" class="form-control instruction"  
+                                        placeholder="Max 250 characters"><%= instruction.instruction %></textarea>
+                                </td>
+                                <td>
+                                    <button type="button" id="deleteRow" style="margin-top: 10px;" 
+                                        class="btn btn-danger btn-sm DeleteInstrButton" >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </li>
+                    <% })  %>
+                <% }  %>
             </ol>
-        </tbody>
-    <tfoot>
-        <tr>
-            <td class="text-center">
-                <button type="button" id="newInstructionStepBtn"
+            <button type="button" id="newInstructionStepBtn"
                 onclick="appendNewInstruction()" class="btn btn-success">Ajouter une étape</button>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+        </div>
+            
+
+                

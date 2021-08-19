@@ -13,11 +13,11 @@
 <body>
   <br><br><br>
   
-  <h1 class="text-center"><%=title%> | Don't worry about making mistakes, you can edit it later !</h1>
+  <h1 class="text-center"><%=title%></h1>
   <br><br><br>
 
 <div class="container" >
-    <form id="newRecipeForm" style="display: flex;" method="POST">
+    <form id="newRecipeForm" style="display: flex;" enctype="multipart/form-data" method="POST">
         <div class="col col-details">
             <div class="row">
                 <div class="input-group mb-3" style="width: 83%">
@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="input-group mb-3" style="width: 83%">
                     <span class="input-group-text">Temps de préparation <span style="color: red;"> *</span></span>
-                    <input type="number" class="form-control" name="tempsPrep" style="width: 40%" required>
+                    <input type="number" class="form-control numonly" name="tempsPrep" style="width: 40%" required>
                     <span class="input-group-text">minutes</span>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="input-group mb-3"  style="width: 83%">
                     <span class="input-group-text">Temps de cuisson <span style="color: red;"> *</span></span>
-                    <input type="number" class="form-control" name="tempsCook" style="width: 40%" required>
+                    <input type="number" class="form-control numonly" name="tempsCook" style="width: 40%" required>
                     <span class="input-group-text">minutes</span>
                 </div>
             </div>
@@ -94,6 +94,15 @@
                 <div class="input-group mb-3" style="width: 83%">
                     <span class="input-group-text">Source</span>
                     <input name="source" type="text" class="form-control" placeholder="Website / Friend">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="formFile" class="form-label">
+                    <h4>Image de la recette</h4>
+                </label>
+                <div class="input-group mb-3" style="width: 83%">
+                    <input class="form-control" type="file" name="recipeImage" placeholder="Recipe image">
                 </div>
             </div>
 

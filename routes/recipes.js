@@ -3,15 +3,22 @@ const router = express.Router()
 const Recipe = require('../models/recipe').Recipe
 const Ingredient = require('../models/ingredient').Ingredient
 const Instruction = require('../models/instruction').Instruction
-
+const Upload = require("../middleware/upload").upload;
+const recipeFunctions = require("../public/javascripts/recipeFunctions.js");
 
 /* Get page to create a recipe */
 router.get('/new', (req, res) => {
-    res.render('newRecipe', {title: 'New recipe'})
+    res.render('newRecipe', {title: 'New recipe', mode: "create"})
 })
 
 /* Create a recipe */
-router.post('/new', async (req, res) => {
+router.post('/new', Upload.single('recipeImage'), async (req, res) => {
+  var filePath;
+  if (!req.file){
+    filePath = "/images/recipe.jpg"
+  } else {
+    filePath = req.file.path
+  }
   let ingredients = await req.body.valueOfIngredients.split(',');
   let instructions = await req.body.valueOfInstructions.split(',');
 
@@ -26,9 +33,10 @@ router.post('/new', async (req, res) => {
     tempsCuisson : req.body.tempsCook,
     source : req.body.source,
     ingredients : ingredientsArray,
-    instructions : instructionsArray
-
+    instructions : instructionsArray,
+    recipeImage : filePath
   });
+  
   try {
     addedRecipe = await newRecipe.save()
   } catch (err){
@@ -44,14 +52,21 @@ router.get('/find/', async (req, res) => {
   res.render("recipe", {title: recipe.name, recipe :recipe},)
 })
 
+
 /* Delete one recipe */
-router.delete('/delete/:recipeId', (req, res) => {
-    
+router.get('/delete/', async (req, res) => {
+  var recipeId = req.query.id;
+  await Recipe.deleteOne({ _id: recipeId }, function (err) {
+    if (err) return handleError(err);
+  });
+  res.redirect("/")
 })
 
 /* Edit one recipe */
-router.put('/edit/:recipeId', (req, res) => {
-    
+router.get('/edit/', async (req, res) => {
+  var recipeId = req.query.id;
+  var recipe = await Recipe.findById(recipeId)
+  res.render('editRecipe', {title: 'Edit recipe', recipe : recipe, mode: "edit", functions: recipeFunctions})
 })
 
 function createAndGetIngredientsArray(ingredientsFromRequest){

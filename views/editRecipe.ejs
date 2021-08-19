@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/libs/cute-alert/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+ <% include partials/navbar.ejs %>
+
+<body>
+  <br><br><br>
+  
+  <h1 class="text-center"><%=title%></h1>
+  <br><br><br>
+
+<div class="container" >
+    <form id="newRecipeForm" style="display: flex;" enctype="multipart/form-data" method="POST">
+        <div class="col col-details">
+            <div class="row">
+                <div class="input-group mb-3" style="width: 83%">
+                    <span class="input-group-text" id="basic-addon1">
+                        Nom de la recette <span style="color: red;"> *</span>
+                    </span>
+                    <input name="recipeName" value="<%= recipe.name %>" type="text" class="form-control"  required>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3" style="margin-right: 15px;">
+                        Portions <span style="color: red;"> *</span></span>
+                    <div id="portionsPicker" class="btn-group" role="radiogroup" aria-label="Basic radio toggle button group"
+                        style="flex-wrap: wrap;">
+                        
+                        <input type="radio" class="btn-check" value="1" name="portionsRadios" id="portion_1" required>
+                        <label class="btn btn-secondary" for="portion_1">1</label>
+                    
+                        <input type="radio" class="btn-check" value="2" name="portionsRadios" id="portion_2">
+                        <label class="btn btn-secondary" for="portion_2">2</label>
+                    
+                        <input type="radio" class="btn-check" value="3" name="portionsRadios" id="portion_3">
+                        <label class="btn btn-secondary" for="portion_3">3</label>
+    
+                        <input type="radio" class="btn-check" value="4" name="portionsRadios" id="portion_4">
+                        <label class="btn btn-secondary" for="portion_4">4</label>
+                    
+                        <input type="radio" class="btn-check" value="5" name="portionsRadios" id="portion_5">
+                        <label class="btn btn-secondary" for="portion_5">5</label>
+                    
+                        <input type="radio" class="btn-check" value="6" name="portionsRadios" id="portion_6">
+                        <label class="btn btn-secondary" for="portion_6">6</label>
+    
+                        <input type="radio" class="btn-check" value="7" name="portionsRadios" id="portion_7" >
+                        <label class="btn btn-secondary" for="portion_7">7</label>
+                    
+                        <input type="radio" class="btn-check" value="8" name="portionsRadios" id="portion_8">
+                        <label class="btn btn-secondary" for="portion_8">8</label>
+                    
+                        <input type="radio" class="btn-check" value="9" name="portionsRadios" id="portion_9">
+                        <label class="btn btn-secondary" for="portion_9">9</label>
+    
+                        <input type="radio" class="btn-check" value="10" name="portionsRadios" id="portion_10" >
+                        <label class="btn btn-secondary" for="portion_10">10</label>
+                    
+                        <input type="radio" class="btn-check" value="11" name="portionsRadios" id="portion_11" >
+                        <label class="btn btn-secondary" for="portion_11">11</label>
+                    
+                        <input type="radio" class="btn-check" value="12" name="portionsRadios" id="portion_12" >
+                        <label class="btn btn-secondary" for="portion_12">12</label>
+                    </div>
+                </div>
+            </div>
+            <!-- % functions.checkPortion(recipe.portions)%> -->
+            <div class="row">
+                <div class="input-group mb-3" style="width: 83%">
+                    <span class="input-group-text">Temps de préparation <span style="color: red;"> *</span></span>
+                    <input type="number" value="<%= recipe.tempsPreparation %>" class="form-control numonly" name="tempsPrep" style="width: 40%" required>
+                    <span class="input-group-text">minutes</span>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="input-group mb-3"  style="width: 83%">
+                    <span class="input-group-text">Temps de cuisson <span style="color: red;"> *</span></span>
+                    <input type="number" value="<%= recipe.tempsCuisson %>" class="form-control numonly" name="tempsCook" style="width: 40%" required>
+                    <span class="input-group-text">minutes</span>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="input-group mb-3" style="width: 83%">
+                    <span class="input-group-text">Source</span>
+                    <input name="source" type="text" value="<%= recipe.source %>" class="form-control" placeholder="Website / Friend">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="formFile" class="form-label">
+                    <div class="form-check form-switch" style="font-size: 28px;">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">
+                            Je veux modifier l'image de la recette
+                        </label>
+                    </div>
+                </label>
+               
+                  
+                <div class="input-group mb-3" style="width: 83%">
+                    <input class="form-control" type="file" id="recipeImageInput" name="recipeImage" placeholder="Recipe image">
+                </div>
+            </div>
+
+            <div class="row">
+                <% include partials/instructionsTableOnCreating.ejs %>
+                
+            </div>
+        </div>
+
+        <div class="col col-ingredients">
+            <div class="row" >
+                <% include partials/ingredientsTableOnCreating.ejs %>
+            </div>
+        </div>
+        <input type="hidden" id="valueOfPortions" name="valueOfPortions" value="none"/>
+        <input type="hidden" id="valueOfIngredients" name="valueOfIngredients" value="none"/>
+        <input type="hidden" id="valueOfInstructions" name="valueOfInstructions" value="none"/>
+        <input type="submit" style="display:none" name="submitButton" id="submitButton" >
+    </form>
+    <div class="text-center">
+        <button class="btn btn-primary btn-lg" type="button" onclick="editRecipe()">Modifier la recette</button>
+    </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+    integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
+  </script>
+  <script src="/libs/cute-alert/cute-alert.js"></script>
+  <script src="/javascripts/createRecipe.js"></script>
+</body>
+
+</html>

@@ -13,36 +13,53 @@
   <br><br><br>
   
   <h1><%=title%></h1>
-  
-  <% recipes.forEach(function(recipe)  {   %>
-    <div class="card bg-dark text-white text-center mb-3 recipeCard">
-     
-        <a href="/recipes/find/?id=<%= recipe._id %>" class="text-white" style="text-decoration-line: none;">
-          <div class="card-header">
-            <div class="row">
-              <div class="col" style="font-size: 32px; text-align: start;">
-                <%= recipe.name %>
-              </div>
-              <div class="col" style="font-size: 18px; text-align: end; ">
-                  <%= recipe.portions %> <img src="/images/icons/portions.svg" class="filter-white" width="32px" height="32px"><br>
-                  <%= recipe.tempsPreparation + recipe.tempsCuisson %>  <img src="/images/icons/stopwatch.svg" class="filter-white" width="32px" height="32px">
-              </div>
-            </div>
-          </div>
-        </a>
    
-      <a href="/recipe/get" class="text-white" style="text-decoration-line: none;">
-        <img src="/images/pizza.jpg" class="card-img" alt="..."  width="250px" height="250px">
-        <div class="card-img">  
-
-        </div>
-      </a>
-      <div class="card-footer text-muted">
-        Source : <%= recipe.source %>
-        <input type="hidden" name="recipeId" value="<%= recipe._id %>" />
+  <% if (count == 0) { %>
+    <div class="card bg-secondary text-white text-center mb-3" style="width: 50%; margin-left : auto; margin-right: auto;">
+      <img class="card-img-top" style="zoom: 75%;" src="/images/icons/404.png" width="600px" height="300px" alt="Card image cap">
+      <div class="card-body">
+        <h2 class="card-title">Votre catalogue de recettes est vide.</h2><br>
+        <a href="/recipes/new" class="btn btn-primary">Ajouter une recette</a>
       </div>
     </div>
-  <% }); %>
+  <% } else { %>
+    <% recipes.forEach(function(recipe)  {   %>
+      <% var getRecipeURL = "/recipes/find/?id="; %>
+      <% getRecipeURL = getRecipeURL + recipe._id; %>
+      <div class="card bg-dark text-white text-center mb-3 recipeCard">
+       
+          <a href="<%= getRecipeURL %>" class="text-white" style="text-decoration-line: none;">
+            <div class="card-header">
+              <div class="row">
+                <div class="col" style="font-size: 32px; text-align: start;">
+                  <%= recipe.name %>
+                </div>
+                <div class="col" style="font-size: 18px; text-align: end; ">
+                    <%= recipe.portions %> <img src="/images/icons/portions.svg" class="filter-white" width="32px" height="32px"><br>
+                    <%= recipe.tempsPreparation + recipe.tempsCuisson %>  <img src="/images/icons/stopwatch.svg" class="filter-white" width="32px" height="32px">
+                </div>
+              </div>
+            </div>
+          </a>
+     
+        <a href="<%= getRecipeURL %>" class="text-white" style="text-decoration-line: none;">
+          <% var imgPath = recipe.recipeImage;  %>
+          <% if(imgPath == undefined){ %>
+            <% var imgPath = "/images/recipe.jpg";  %>
+          <% } %>
+          <% imgPath = imgPath.replace('public', '') %>
+          <img src="<%= imgPath  %>" class="card-img" alt="..."  width="250px" height="250px">
+          <div class="card-img">  
+  
+          </div>
+        </a>
+        <div class="card-footer text-muted">
+          Source : <%= recipe.source %>
+          <input type="hidden" name="recipeId" value="<%= recipe._id %>" />
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
