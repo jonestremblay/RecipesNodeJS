@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     } catch (err) {
         res.status(500).json({message : err.message});
     }
-    res.render('home', {title: 'Recipes', recipes : recipes, count: recipes.length},)
+    res.render('home', {title: 'Mes recettes', recipes : recipes, count: recipes.length},)
   })
 
 

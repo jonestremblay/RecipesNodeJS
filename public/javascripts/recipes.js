@@ -7,8 +7,8 @@ function getIngredientTableRow(){
     var row = '<tr class="input-group"><td><span class="input-group-text">Ingrédient</span>'
             + '<input type="text" class="form-control ingredientName" placeholder="Nom" required>'
             + '<button type="button" id="deleteRow" style="margin-top: 10px;" class="btn btn-danger btn-sm DeleteButton"'
-            + '>Delete</button></td><td>'
-            + '<span class="input-group-text">Quantity</span>'
+            + '>Supprimer</button></td><td>'
+            + '<span class="input-group-text">Quantité</span>'
             + '<input type="text" class="form-control ingredientQuantity" name="numOrDecimalonly"  required>'
             + '<div id="unitOfMeasurePicker" class="btn-group unitOfMeasureGroupButton" role="group" aria-label="Basic radio toggle button group">'
             + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNum 
@@ -39,9 +39,9 @@ function getIngredientTableRow(){
 
 function getInstructionTableRow(){
     var row = '<li style="width: 80%;"><tr class="input-group" name="instructionRow">'
-            + '<td><textarea cols="32" class="form-control instruction"  placeholder="Max 250 characters"></textarea></td>'
+            + '<td><textarea cols="32" class="form-control instruction"  placeholder="Maximum 250 caractères"></textarea></td>'
             + '<td><button type="button" id="deleteRow" style="margin-top: 10px;" '
-            + 'class="btn btn-danger btn-sm DeleteInstrButton" >Delete</button>'
+            + 'class="btn btn-danger btn-sm DeleteInstrButton" >Supprimer</button>'
             + '</td></tr></li>'
     return row;
 }
@@ -70,9 +70,12 @@ $(function(){
 })
 
 $(function() {
+    /* We want to do it on load ....... */
+    let radioClicked = $('#newRecipeForm input[name=portionsRadios]:checked').val();
+    $('#valueOfPortions').val(radioClicked)
+    /* ...... but also on click event. */
     $("#portionsPicker").on("click", ".btn-check", function() {
         let radioClicked = $('#newRecipeForm input[name=portionsRadios]:checked').val();
-        console.log('clicked -> ' + radioClicked);
         $('#valueOfPortions').val(radioClicked)
     });
 
@@ -87,18 +90,16 @@ $(function() {
 
 });
 
-function removeRow(row){
-    $(row).remove();
-}
 
 function createRecipe(){
     if (checkUnitsOfMeasureButtons()){
         cuteAlert({
                 type: "error",
-                title: "Missing values",
-                message: "Have you checked which unit of measure you want for every ingredient ?"
-                        + "<br><br>If you don't want to add ingredient(s) for now, just delete them before submitting.",
-                buttonText: "Understood",
+                title: "Valeurs manquantes",
+                message: "Avez-vous vérifié que chaque ingrédient ait une unité de mesure séléctionée ?"
+                        + "<br><br>Si vous ne voulez pas ajouter d'ingrédient(s) pour l'instant, vous n'avez "
+                        + "qu'à supprimer tous les ingrédients avant de créer la recette.",
+                buttonText: "C'est compris",
             });
     } else {
         $('#valueOfInstructions').val(getAllInstructions());
@@ -154,12 +155,20 @@ $(function(){
 })
 $('#flexSwitchCheckDefault:checkbox').on('change', function(){
     if($(this).is(':checked')){
+        $("#newImageSwitch").val("checked")
         $("#recipeImageInput").show()
     } else {
+        $("#newImageSwitch").val("unchecked")
         $("#recipeImageInput").hide()
-        
     }
 });
+
+function setValueOfPortions(){
+    $("#portionsPicker").on("click", ".btn-check", function() {
+        let radioClicked = $('#newRecipeForm input[name=portionsRadios]:checked').val();
+        $('#valueOfPortions').val(radioClicked)
+    });
+}
 
 function appendIngredient(){
     var row  = getIngredientTableRow();
@@ -174,54 +183,6 @@ function appendInstruction(instruction){
     $('#instructionsList').append(row);
 }
 
-/* This variable is changing during runtime */
-var groupNumberForEdit = 0;
-
-function createIngredient(){
-    var groupNum = groupNumberForEdit + 1; 
-    groupNumberForEdit = groupNum;
-    var row = '<tr class="input-group"><td><span class="input-group-text">Ingrédient</span>'
-            + '<input type="text" class="form-control ingredientName" placeholder="Nom" required>'
-            + '<button type="button" id="deleteRow" style="margin-top: 10px;" class="btn btn-danger btn-sm DeleteButton"'
-            + '>Delete</button></td><td>'
-            + '<span class="input-group-text">Quantity</span>'
-            + '<input type="text" class="form-control ingredientQuantity" name="numOrDecimalonly"  required>'
-            + '<div id="unitOfMeasurePicker" class="btn-group unitOfMeasureGroupButton" role="group" aria-label="Basic radio toggle button group">'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="gram_' + groupNumberForEdit + '" value="gr" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="gram_' + groupNumberForEdit + '" checked>gr</label>'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="kilogram_' + groupNumberForEdit + '" value="kg" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="kilogram_' + groupNumberForEdit + '">kg</label>'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="millilitre_' + groupNumberForEdit + '" value="mL" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="millilitre_' + groupNumberForEdit + '">mL</label>'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="litre_' + groupNumberForEdit + '" value="L" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="litre_' + groupNumberForEdit + '">L</label>'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="ounce_' + groupNumberForEdit + '" value="oz" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="ounce_' + groupNumberForEdit + '">oz</label>'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="teaspoon_' + groupNumberForEdit + '"  value="tsp" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="teaspoon_' + groupNumberForEdit + '">tsp</label>'
-            + '<input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_' + groupNumberForEdit 
-                                        + '" id="tablespoon_' + groupNumberForEdit + '" value="tbsp" autocomplete="off">'
-            + '<label class="btn btn-secondary" for="tablespoon_' + groupNumberForEdit + '">tbsp</label></div></td></tr>';
-
-            
-    return row;
-}
-
-function createInstruction(instruction){
-    var row = '<li><tr class="input-group" name="instructionRow">'
-            + '<td><textarea cols="32" class="form-control instruction" value="' + instruction + '" ' 
-            + 'placeholder="Max 250 characters"></textarea></td>'
-            + '<td><button type="button" id="deleteRow" style="margin-top: 10px;" '
-            + 'class="btn btn-danger btn-sm DeleteInstrButton" >Delete</button>'
-            + '</td></tr></li>'
-    return row;
-}
 
 function editRecipe(){
     if (checkUnitsOfMeasureButtons()){
@@ -239,5 +200,39 @@ function editRecipe(){
     }
 }
 
+function deleteRecipe(recipeName, recipeId){
+    $.ajax({
+        url: "/recipes/delete/",
+        type: "GET",
+        data: {
+            id: recipeId
+        },
+        success: function (response) {
+            showDeletedSuccessDialog(recipeName);
+        },
+        error: function (xhr) {
+            showDeletedErrorDialog(recipeName, xhr);
+        }
+    });
+}
 
+function showDeletedSuccessDialog(recipeName){
+    cuteAlert({
+        type: "success",
+        title: recipeName,
+        message: "La recette '" + recipeName + "' a bel et bien été supprimée.",
+        buttonText: "OK"
+    }).then((e)=>{
+        window.location.replace("/")
+    })
+}
+
+function showDeletedErrorDialog(recipeName, errorMsg){
+    cuteAlert({
+        type: "error",
+        title: "La recette '" + recipeName + "' n'a pas été supprimée.",
+        message: errorMsg,
+        buttonText: "OK :-("
+    })
+}
 

@@ -14,7 +14,7 @@
 <body>
   <br><br><br>
   
-  <h1 class="text-center"><%=title%></h1>
+  <h1 class="text-center" style="font-size: 5rem; font-family: Rockwell;"><%=title%></h1>
   <br><br><br>
 
 <div class="container" >
@@ -28,53 +28,99 @@
                     <input name="recipeName" value="<%= recipe.name %>" type="text" class="form-control"  required>
                 </div>
             </div>
-    
             <div class="row">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon3" style="margin-right: 15px;">
                         Portions <span style="color: red;"> *</span></span>
-                    <div id="portionsPicker" class="btn-group" role="radiogroup" aria-label="Basic radio toggle button group"
-                        style="flex-wrap: wrap;">
-                        
-                        <input type="radio" class="btn-check" value="1" name="portionsRadios" id="portion_1" required>
+                    <div id="portionsPicker" class="btn-group" role="radiogroup" aria-label="Basic radio toggle button group" style="flex-wrap: wrap;">
+                        <input type="radio" class="btn-check" value="1" name="portionsRadios" id="portion_1" required 
+                        <% if (portion.portion_1) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_1">1</label>
                     
-                        <input type="radio" class="btn-check" value="2" name="portionsRadios" id="portion_2">
+                        <input type="radio" class="btn-check" value="2" name="portionsRadios" id="portion_2"
+                             <% if (portion.portion_2) { %> 
+                                     checked
+                                <% }%>
+                                >
                         <label class="btn btn-secondary" for="portion_2">2</label>
                     
-                        <input type="radio" class="btn-check" value="3" name="portionsRadios" id="portion_3">
+                        <input type="radio" class="btn-check" value="3" name="portionsRadios" id="portion_3" 
+                        <% if (portion.portion_3) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_3">3</label>
     
-                        <input type="radio" class="btn-check" value="4" name="portionsRadios" id="portion_4">
+                        <input type="radio" class="btn-check" value="4" name="portionsRadios" id="portion_4"
+                        <% if (portion.portion_4) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_4">4</label>
                     
-                        <input type="radio" class="btn-check" value="5" name="portionsRadios" id="portion_5">
+                        <input type="radio" class="btn-check" value="5" name="portionsRadios" id="portion_5"
+                        <% if (portion.portion_5) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_5">5</label>
                     
-                        <input type="radio" class="btn-check" value="6" name="portionsRadios" id="portion_6">
+                        <input type="radio" class="btn-check" value="6" name="portionsRadios" id="portion_6"
+                        <% if (portion.portion_6) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_6">6</label>
     
-                        <input type="radio" class="btn-check" value="7" name="portionsRadios" id="portion_7" >
+                        <input type="radio" class="btn-check" value="7" name="portionsRadios" id="portion_7" 
+                        <% if (portion.portion_7) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_7">7</label>
                     
-                        <input type="radio" class="btn-check" value="8" name="portionsRadios" id="portion_8">
+                        <input type="radio" class="btn-check" value="8" name="portionsRadios" id="portion_8"
+                        <% if (portion.portion_8) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_8">8</label>
                     
-                        <input type="radio" class="btn-check" value="9" name="portionsRadios" id="portion_9">
+                        <input type="radio" class="btn-check" value="9" name="portionsRadios" id="portion_9"
+                        <% if (portion.portion_9) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_9">9</label>
     
-                        <input type="radio" class="btn-check" value="10" name="portionsRadios" id="portion_10" >
+                        <input type="radio" class="btn-check" value="10" name="portionsRadios" id="portion_10" 
+                        <% if (portion.portion_10) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_10">10</label>
                     
-                        <input type="radio" class="btn-check" value="11" name="portionsRadios" id="portion_11" >
+                        <input type="radio" class="btn-check" value="11" name="portionsRadios" id="portion_11" 
+                        <% if (portion.portion_11) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_11">11</label>
                     
-                        <input type="radio" class="btn-check" value="12" name="portionsRadios" id="portion_12" >
+                        <input type="radio" class="btn-check" value="12" name="portionsRadios" id="portion_12" 
+                        <% if (portion.portion_12) { %> 
+                                checked
+                           <% }%>
+                           >
                         <label class="btn btn-secondary" for="portion_12">12</label>
                     </div>
                 </div>
             </div>
-            <!-- % functions.checkPortion(recipe.portions)%> -->
+            
+            
             <div class="row">
                 <div class="input-group mb-3" style="width: 83%">
                     <span class="input-group-text">Temps de préparation <span style="color: red;"> *</span></span>
@@ -106,11 +152,14 @@
                             Je veux modifier l'image de la recette
                         </label>
                     </div>
+                    <input type="hidden" id="newImageSwitch" name="newImageSwitch" value="unchecked">
                 </label>
                
                   
                 <div class="input-group mb-3" style="width: 83%">
-                    <input class="form-control" type="file" id="recipeImageInput" name="recipeImage" placeholder="Recipe image">
+                    <input class="form-control" type="file" id="recipeImageInput" name="recipeImage" placeholder="Image de la recette">
+                    <!-- Used if we don't want to edit original image -->
+                    <input value="<%= recipe.recipeImage %>" type="hidden" name="originalRecipeImage" id="originalRecipeImage">
                 </div>
             </div>
 
@@ -128,10 +177,11 @@
         <input type="hidden" id="valueOfPortions" name="valueOfPortions" value="none"/>
         <input type="hidden" id="valueOfIngredients" name="valueOfIngredients" value="none"/>
         <input type="hidden" id="valueOfInstructions" name="valueOfInstructions" value="none"/>
+        <input type="hidden" id="recipeId" name="recipeId" value="<%= recipe._id %>"/>
         <input type="submit" style="display:none" name="submitButton" id="submitButton" >
     </form>
     <div class="text-center">
-        <button class="btn btn-primary btn-lg" type="button" onclick="editRecipe()">Modifier la recette</button>
+        <button class="btn btn-success btn-lg" type="button" onclick="editRecipe()">Modifier la recette</button>
     </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -142,7 +192,7 @@
     integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
   </script>
   <script src="/libs/cute-alert/cute-alert.js"></script>
-  <script src="/javascripts/createRecipe.js"></script>
+  <script src="/javascripts/recipes.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<h1 class="mb-3">Instructions</h1>
+<h1 class="mb-3" style="font-size: 3rem; font-family: Rockwell;">Instructions</h1>
         <div class="text-center">
             <ol id="instructionsList" class="list-group list-group-flush">
                 <% if (mode == "edit") { %>
@@ -8,12 +8,12 @@
                             <tr class="input-group" name="instructionRow">
                                 <td>
                                     <textarea col="32" class="form-control instruction"  
-                                        placeholder="Max 250 characters"><%= instruction.instruction %></textarea>
+                                        placeholder="Maximum 250 caractères"><%= instruction.instruction %></textarea>
                                 </td>
                                 <td>
                                     <button type="button" id="deleteRow" style="margin-top: 10px;" 
                                         class="btn btn-danger btn-sm DeleteInstrButton" >
-                                        Delete
+                                        Supprimer
                                     </button>
                                 </td>
                             </tr>
@@ -22,7 +22,7 @@
                 <% }  %>
             </ol>
             <button type="button" id="newInstructionStepBtn"
-                onclick="appendNewInstruction()" class="btn btn-success">Ajouter une étape</button>
+                onclick="appendNewInstruction()" class="btn btn-primary">Ajouter une étape</button>
         </div>
             
 

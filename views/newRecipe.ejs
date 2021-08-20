@@ -13,7 +13,7 @@
 <body>
   <br><br><br>
   
-  <h1 class="text-center"><%=title%></h1>
+  <h1 class="text-center" style="font-size: 5rem; font-family: Rockwell;"><%=title%></h1>
   <br><br><br>
 
 <div class="container" >
@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="input-group mb-3" style="width: 83%">
                     <span class="input-group-text">Source</span>
-                    <input name="source" type="text" class="form-control" placeholder="Website / Friend">
+                    <input name="source" type="text" class="form-control" placeholder="Site internet / ami">
                 </div>
             </div>
 
@@ -102,7 +102,7 @@
                     <h4>Image de la recette</h4>
                 </label>
                 <div class="input-group mb-3" style="width: 83%">
-                    <input class="form-control" type="file" name="recipeImage" placeholder="Recipe image">
+                    <input class="form-control" type="file" name="recipeImage" placeholder="Image de la recette">
                 </div>
             </div>
 
@@ -122,7 +122,7 @@
         <input type="submit" style="display:none" name="submitButton" id="submitButton" >
     </form>
     <div class="text-center">
-        <button class="btn btn-primary btn-lg" type="button" onclick="createRecipe()">Créer la recette</button>
+        <button class="btn btn-success btn-lg" type="button" onclick="createRecipe()">Créer la recette</button>
     </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -133,7 +133,7 @@
     integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
   </script>
   <script src="/libs/cute-alert/cute-alert.js"></script>
-  <script src="/javascripts/createRecipe.js"></script>
+  <script src="/javascripts/recipes.js"></script>
 </body>
 
 </html>

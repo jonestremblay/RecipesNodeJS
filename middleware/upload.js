@@ -1,4 +1,5 @@
 
+/* This middleware is used to upload files to the web server. */
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -17,7 +18,7 @@ const fileFilter = (req, file, cb) => {
         cb(null, true)
     } else {
         /* Do not store it*/
-        cb(new Error("The image format is invalid."), false)
+        cb(new Error("We only accept images with the extension : .png or .jpeg"), false)
     }
 }
 

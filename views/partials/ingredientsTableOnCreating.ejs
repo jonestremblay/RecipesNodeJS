@@ -1,4 +1,4 @@
-<h1 class="mb-3">Ingrédients</h1>
+<h1 class="mb-3" style="font-size: 3rem; font-family: Rockwell;">Ingrédients</h1>
 
 <table id="ingredientsTable"  class="table mb-3" style="float: right;">
     <thead>
@@ -12,33 +12,64 @@
                     <td><span class="input-group-text">Ingrédient</span>
                         <input type="text" class="form-control ingredientName" value="<%= ingredient.name %>"  placeholder="Nom" required>
                         <button type="button" id="deleteRow" style="margin-top: 10px;" class="btn btn-danger btn-sm DeleteButton">
-                            Delete
+                            Supprimer
                         </button>
                     </td>
                     <td>
-                        <span class="input-group-text">Quantity</span>
-                        <input type="text" class="form-control ingredientQuantity" value="<%= ingredient.quantity %>" name="numOrDecimalonly"  required>
+                        <span class="input-group-text">Quantité</span>
+                        <% var splittedQuantity = ingredient.quantity.split(' ') %>
+                        <% var quantity = splittedQuantity[0] %>
+                        <% var unitOfMeasure = splittedQuantity[1] %>
+                        <input type="text" class="form-control ingredientQuantity" value="<%= quantity %>" name="numOrDecimalonly"  required >
                         <div id="unitOfMeasurePicker" class="btn-group unitOfMeasureGroupButton" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                            id="gram_<%= num %>" value="gr" autocomplete="off">
+                                            id="gram_<%= num %>" value="gr" autocomplete="off"
+                                            <% if (unitOfMeasure == "gr") { %> 
+                                                checked %
+                                            <% }%>
+                                            >
                         <label class="btn btn-secondary" for="gram_<%= num %>" checked>gr</label>
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                                    id="kilogram_<%= num %>" value="kg" autocomplete="off">
+                                                    id="kilogram_<%= num %>" value="kg" autocomplete="off"
+                                                    <% if (unitOfMeasure == "kg") { %> 
+                                                        checked %
+                                                    <% }%>
+                                                    >
                         <label class="btn btn-secondary" for="kilogram_<%= num %>">kg</label>
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                                    id="millilitre_<%= num %>" value="mL" autocomplete="off">
+                                                    id="millilitre_<%= num %>" value="mL" autocomplete="off"
+                                                    <% if (unitOfMeasure == "mL") { %> 
+                                                        checked %
+                                                    <% }%>
+                                                    >
                         <label class="btn btn-secondary" for="millilitre_<%= num %>">mL</label>
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                                    id="litre_ + groupNumberForEdit + " value="L" autocomplete="off">
+                                                    id="litre_ + groupNumberForEdit + " value="L" autocomplete="off"
+                                                    <% if (unitOfMeasure == "L") { %> 
+                                                        checked %
+                                                    <% }%>
+                                                    >
                         <label class="btn btn-secondary" for="litre_<%= num %>">L</label>
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                                    id="ounce_<%= num %>" value="oz" autocomplete="off">
+                                                    id="ounce_<%= num %>" value="oz" autocomplete="off"
+                                                    <% if (unitOfMeasure == "oz") { %> 
+                                                        checked %
+                                                    <% }%>
+                                                    >
                         <label class="btn btn-secondary" for="ounce_<%= num %>">oz</label>
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                                    id="teaspoon_<%= num %>"  value="tsp" autocomplete="off">
+                                                    id="teaspoon_<%= num %>"  value="tsp" autocomplete="off"
+                                                    <% if (unitOfMeasure == "tsp") { %> 
+                                                        checked %
+                                                    <% }%>
+                                                    >
                         <label class="btn btn-secondary" for="teaspoon_<%= num %>">tsp</label>
                         <input type="radio" class="btn-check unitOfMeasureRadio" name="unitOfMeasureRadio_<%= num %>" 
-                                                    id="tablespoon_<%= num %>" value="tbsp" autocomplete="off">
+                                                    id="tablespoon_<%= num %>" value="tbsp" autocomplete="off"
+                                                    <% if (unitOfMeasure == "tbsp") { %> 
+                                                        checked %
+                                                    <% }%>
+                                                    >
                         <label class="btn btn-secondary" for="tablespoon_<%= num %>">tbsp</label></div>
                     </td>
                 </tr>
@@ -49,7 +80,7 @@
     <tfoot>
         <td class="text-center">
             <button type="button" id="newIngredientBtn"
-            onclick="appendNewIngredient()" class="btn btn-success">Ajouter ingrédient</button>
+            onclick="appendNewIngredient()" class="btn btn-primary">Ajouter ingrédient</button>
         </td>
     </tfoot>
 </table>

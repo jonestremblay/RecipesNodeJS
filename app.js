@@ -7,7 +7,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose')
 
 
-
+/* Database connection */
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
 const db = mongoose.connection
 db.on('error', (error) => console.log(error))
@@ -19,12 +19,10 @@ const recipesRouter = require('./routes/recipes')
 
 /* Models*/
 const Recipe = require('./models/recipe').Recipe
-const Ingredient = require('./models/ingredient').Ingredient
-const Instruction = require('./models/instruction').Instruction
 
 var app = express();
 
-// view engine setup
+/* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
@@ -32,33 +30,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+/* Adds /images/uploads to static folders that can be accessed */
 app.use('/images/uploads', express.static('/images/uploads'))
 
 app.use('/home', homeRouter);
 app.use("/recipes", recipesRouter)
-
-
-
-app.get("/file/:filename", async (req, res) => {
-  try {
-      const file = await gfs.files.findOne({ filename: req.params.filename });
-      const readStream = gfs.createReadStream(file.filename);
-      readStream.pipe(res);
-  } catch (error) {
-      res.send("not found");
-  }
-});
-
-app.delete("/file/:filename", async (req, res) => {
-  try {
-      await gfs.files.deleteOne({ filename: req.params.filename });
-      res.send("success");
-  } catch (error) {
-      console.log(error);
-      res.send("An error occured.");
-  }
-});
-
 
 app.use(function(req, res){
   res.redirect("/home/");

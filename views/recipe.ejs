@@ -39,13 +39,6 @@
                                     Modifier la recette
                                 </button></li>
                             </a>
-                            <li class="text-center">-------------------------</li>
-                          
-                            <li><button class="dropdown-item" type="button" 
-                                    onclick="showDeleteConfirmation('<%= recipe.name %>', '<%= recipe._id %>')">
-                                Supprimer la recette
-                            </button></li>
-                           
                         </ul>
                     </div>
                     <div class="btn-group dropstart" style="width: 10%; top: 20px;">
@@ -88,7 +81,7 @@
                         </div>
                         <div class="row ">
                             <div class="text-center">
-                                <label for="ingredientsList"><h2 class="fatface">Ingrédients</h2></label>
+                                <label for="ingredientsList"><h2 style="font-family: Rockwell;">Ingrédients</h2></label>
                             </div>
                             <ul id="ingredientsList" class="list-group list-group-flush" >
                                 <% recipe.ingredients.forEach(function(ingredient)  {   %>
@@ -104,7 +97,7 @@
                     </div>
                     <div class="col">
                         <div class="text-center">
-                            <label for="instructionsList"><h2 class="fatface">Instructions</h2></label>
+                            <label for="instructionsList"><h2 style="font-family: Rockwell;">Instructions</h2></label>
                         </div>
                         <ol id="instructionsList" class="list-group list-group-flush">
                             <% recipe.instructions.forEach(function(instruction)  {   %>
@@ -133,7 +126,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
     integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous">
   </script>
-  <script src="/javascripts/common.js"></script>
+  <script src="/javascripts/recipes.js"></script>
   <script src="/libs/cute-alert/cute-alert.js"></script>
 </body>
 

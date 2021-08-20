@@ -1,14 +1,13 @@
+let fs = require('fs')
 const express = require('express')
 const router = express.Router()
 const Recipe = require('../models/recipe').Recipe
-const Ingredient = require('../models/ingredient').Ingredient
-const Instruction = require('../models/instruction').Instruction
 const Upload = require("../middleware/upload").upload;
-const recipeFunctions = require("../public/javascripts/recipeFunctions.js");
+const RoutesFunctions = require("../public/javascripts/routesFunctions.js");
 
 /* Get page to create a recipe */
 router.get('/new', (req, res) => {
-    res.render('newRecipe', {title: 'New recipe', mode: "create"})
+    res.render('newRecipe', {title: 'Nouvelle recette', mode: "create"})
 })
 
 /* Create a recipe */
@@ -22,10 +21,11 @@ router.post('/new', Upload.single('recipeImage'), async (req, res) => {
   let ingredients = await req.body.valueOfIngredients.split(',');
   let instructions = await req.body.valueOfInstructions.split(',');
 
-  let ingredientsArray = createAndGetIngredientsArray(ingredients)
-  let instructionsArray = createAndGetInstructionsArray(instructions)
+  let ingredientsArray = RoutesFunctions.GetIngredientsArray(ingredients)
+  let instructionsArray = RoutesFunctions.GetInstructionsArray(instructions)
   let addedRecipe;
 
+  filePath = filePath.replace('public', '')
   var newRecipe = new Recipe({
     name : req.body.recipeName,
     portions : req.body.valueOfPortions,
@@ -56,47 +56,86 @@ router.get('/find/', async (req, res) => {
 /* Delete one recipe */
 router.get('/delete/', async (req, res) => {
   var recipeId = req.query.id;
+  var recipe = await Recipe.findById(recipeId)
+  var imagePathToDelete = recipe.recipeImage
+  console.log("default image : " + imagePathToDelete)
+  /* Delete the recipeImage in the storage */
+  if (imagePathToDelete != "/images/recipe.jpg"){
+    if (fs.existsSync(imagePathToDelete)) {
+      console.log("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+      fs.unlink(imagePathToDelete, (err) => {
+        console.log(err);
+      });
+    }
+  }
+  /* Delete in the DB */
   await Recipe.deleteOne({ _id: recipeId }, function (err) {
     if (err) return handleError(err);
   });
   res.redirect("/")
 })
 
-/* Edit one recipe */
+/* Get EditRecipe page */
 router.get('/edit/', async (req, res) => {
   var recipeId = req.query.id;
   var recipe = await Recipe.findById(recipeId)
-  res.render('editRecipe', {title: 'Edit recipe', recipe : recipe, mode: "edit", functions: recipeFunctions})
+  var portionsArray = await getPortionsArray(recipe.portions)
+  res.render('editRecipe', {title: 'Modification de ' + recipe.name, recipe : recipe, 
+                            mode: "edit", portion : portionsArray})
 })
 
-function createAndGetIngredientsArray(ingredientsFromRequest){
-  let ingredientsArray = []
-  if (ingredientsFromRequest[0] != ""){
-    for (let i in ingredientsFromRequest){
-      let name = ingredientsFromRequest[i].split('of')[1].trim()
-      let quantity = ingredientsFromRequest[i].split('of')[0].trim()
-      let ingredientObj = new Ingredient({
-          name : name,
-          quantity : quantity
-      })
-      ingredientsArray.push(ingredientObj)
-    }
+/* Edit one recipe */
+router.post('/edit/', Upload.single('recipeImage'), async (req, res) => {
+  var filePath;
+  var imageChanged = false;
+  if (!req.file){
+    filePath = req.body.originalRecipeImage
+  } else if (req.body.newImageSwitch === "unchecked"){
+    filePath = req.body.originalRecipeImage
+  } else {
+    imageChanged = true;
+    filePath = req.file.path
   }
-  return ingredientsArray;
-}
+  let ingredients = await req.body.valueOfIngredients.split(',');
+  let instructions = await req.body.valueOfInstructions.split(',');
+  let ingredientsArray = RoutesFunctions.GetIngredientsArray(ingredients)
+  let instructionsArray = RoutesFunctions.GetInstructionsArray(instructions)
+  let updatedRecipe;
+  
+  try {
+    updatedRecipe = await Recipe.updateOne(
+      { _id : req.body.recipeId  },
+      {
+        $set: {
+          name : req.body.recipeName,
+          portions : req.body.valueOfPortions,
+          tempsPreparation : req.body.tempsPrep,
+          tempsCuisson : req.body.tempsCook,
+          source : req.body.source,
+          ingredients : ingredientsArray,
+          instructions : instructionsArray,
+          recipeImage : filePath
+        }
+      }
+    )
+    console.log("Image changed : " + imageChanged)
+    if(imageChanged){
+      var oldImagePathToDelete = req.body.originalRecipeImage
+      console.log(oldImagePathToDelete)
+      /* Delete the old recipeImage in the storage */
+      if (fs.existsSync(oldImagePathToDelete)) {
+        fs.unlink(oldImagePathToDelete, (err) => {
+          console.log(err);
+        });
+      } else {
+        console.log("DOESNT EXIST")
+      }
+    }
+  } catch (err){
+      res.status(400).json({message : err.message})
+  }
+  res.redirect("/")
+})
 
-function createAndGetInstructionsArray(instructionsFromRequest){
-  let instructionsArray = []
-  if (instructionsFromRequest[0] != ""){
-    for (let i in instructionsFromRequest){
-      let name = instructionsFromRequest[i]
-      let instructionsObj = new Instruction({
-          instruction : name
-      })
-      instructionsArray.push(instructionsObj)
-    }
-  }
-  return instructionsArray;
-}
 
 module.exports = router
