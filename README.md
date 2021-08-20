@@ -12,5 +12,6 @@ En toute honnêteté, je n’avais pas envie de reproduire la même application,
 •	Nous pouvons supprimer des recettes<br>
 •	Et bien sûr, nous pouvons consulter les recettes<br>
 <br>
-Pour la simplicité de l’application, et puisque les consignes étaient de réaliser une petite application, je n’ai pas réalisé de système d’authentification.<br>
+Pour la simplicité de l’application, et puisque je souhaitais réaliser une simple petite application locale,<br>
+je n’ai pas réalisé de système d’authentification.<br>
 
